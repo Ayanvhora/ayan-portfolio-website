@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Data Cleaning Project</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:
+linear-gradient(
+rgba(2,44,34,0.80),
+rgba(2,44,34,0.80)
+),
+url("image/bd.jpg");
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
+color:#ECFDF5;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:25px 10%;
+background:#0f172a;
+border-bottom:2px solid #10B981;
+}
+
+.logo{
+font-size:35px;
+font-weight:bold;
+color:#10B981;
+}
+
+.nav-links{
+display:flex;
+list-style:none;
+gap:30px;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+.nav-links a:hover{
+color:#10B981;
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+padding:50px 0;
+}
+
+.project-img{
+width:100%;
+max-width:700px;
+display:block;
+margin:auto;
+border-radius:20px;
+box-shadow:0 0 30px rgba(59,130,246,.5);
+}
+
+h1{
+text-align:center;
+font-size:55px;
+color:#10B981;
+margin:30px 0;
+}
+
+.card{
+background:rgba(30,41,59,0.8);
+backdrop-filter:blur(10px);
+padding:30px;
+border-radius:20px;
+margin-top:30px;
+box-shadow:0 0 20px rgba(59,130,246,.2);
+}
+
+.card h2{
+color:#10B981;
+margin-bottom:20px;
+}
+
+.tool{
+display:inline-block;
+background:#10B981;
+padding:12px 20px;
+margin:10px;
+border-radius:10px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">MAHAMMADAYAN</div>
+
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="resume.html">Resume</a></li>
+<li><a href="skills.html">Skills</a></li>
+<li><a href="projects.html">Projects</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+</nav>
+
+<div class="container">
+
+<img src="image/hr_project.jpg" class="project-img">
+
+<h1>HR Data Cleaning & Analysis</h1>
+
+<div class="card">
+
+<h2>Project Overview</h2>
+
+<p>
+This project focuses on cleaning and analyzing a messy HR dataset using Python, Pandas, NumPy and Jupyter Notebook.
+Missing values, incorrect salary values and inconsistent formats were cleaned before performing analysis and visualization.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Project Files</h2>
+
+<a href="project_files/pandas1.ipynb"
+class="tool"
+target="_blank">
+🐍 Python Code
+</a>
+
+<a href="project_files/messy_HR_data.csv"
+class="tool"
+target="_blank">
+📊 Excel Dataset
+</a>
+
+</div>
+
+<div class="card">
+
+<h2>Project Workflow</h2>
+
+<p>
+1. Dataset Import<br><br>
+2. Data Inspection<br><br>
+3. Missing Values Handling<br><br>
+4. Data Cleaning<br><br>
+5. Data Transformation<br><br>
+6. Exploratory Data Analysis (EDA)<br><br>
+7. Data Visualization<br><br>
+8. Final Insights
+</p>
+
+</div>
+
+</div>
+
+</body>
+</html>
