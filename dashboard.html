@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio CMS Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <h2>Portfolio CMS</h2>
+
+        <ul>
+
+            <li id="dashboardMenu" class="active">
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </li>
+
+            <li id="profileMenu">
+                <i class="fa-solid fa-user"></i>
+                Profile
+            </li>
+
+            <li id="resumeMenu">
+                <i class="fa-solid fa-file-pdf"></i>
+                Resume
+            </li>
+
+            <li id="certificateMenu">
+                <i class="fa-solid fa-certificate"></i>
+                Certificates
+            </li>
+
+            <li id="projectMenu">
+                <i class="fa-solid fa-diagram-project"></i>
+                Projects
+            </li>
+
+            <li id="contactMenu">
+                <i class="fa-solid fa-envelope"></i>
+                Contact
+            </li>
+
+            <li id="settingsMenu">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </li>
+
+            <li id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <h1>Welcome Ayan 👋</h1>
+
+        <p>Manage your complete portfolio from here.</p>
+
+        <!-- Dashboard Section -->
+        <section id="dashboardSection">
+
+            <div class="cards">
+
+                <div class="card">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <h2>Resume</h2>
+                    <p>Upload & Manage Resume</p>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-certificate"></i>
+                    <h2>Certificates</h2>
+                    <p>Add, Edit & Delete Certificates</p>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <h2>Projects</h2>
+                    <p>Manage Portfolio Projects</p>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-user"></i>
+                    <h2>Profile</h2>
+                    <p>Edit Profile Details</p>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h2>Contact</h2>
+                    <p>Manage Contact Information</p>
+                </div>
+
+                <div class="card">
+                    <i class="fa-solid fa-gear"></i>
+                    <h2>Settings</h2>
+                    <p>Website Settings</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Resume Section -->
+
+        <section id="resumeSection">
+
+            <h2>Resume Management</h2>
+
+            <input
+                type="text"
+                id="resumeTitle"
+                placeholder="Resume Title">
+
+            <br><br>
+
+            <input
+                type="file"
+                id="resumeFile"
+                accept=".pdf">
+
+            <br><br>
+
+            <button id="uploadResumeBtn">
+                Upload Resume
+            </button>
+
+            <hr>
+
+            <h3>Current Resume</h3>
+
+            <div id="resumeList">
+                No Resume Uploaded
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script type="module" src="js/dashboard.js"></script>
+
+</body>
+</html>
