@@ -57,32 +57,76 @@
            PROJECT CARD
         ============================== */
 
+        /* ==========================================
+   PROJECT CARD - CERTIFICATE STYLE
+========================================== */
+
         .project-card {
-            background: rgba(30, 41, 59, 0.75);
-            backdrop-filter: blur(10px);
 
-            border: 1px solid rgba(16, 185, 129, 0.25);
-
-            border-radius: 15px;
-
+            position: relative;
             overflow: hidden;
 
-            box-shadow:
-                0 0 20px rgba(16, 185, 129, 0.12);
+            background:
+                linear-gradient(
+                    rgba(2, 44, 34, 0.45),
+                    rgba(2, 44, 34, 0.45)
+                ),
+                url("./image/bd.jpg");
 
-            transition:
-                transform 0.35s ease,
-                box-shadow 0.35s ease,
-                border-color 0.35s ease;
+            background-size: cover;
+            background-position: center;
+
+            border: 2px solid #10B981;
+            border-radius: 25px;
+
+            box-shadow:
+                0 0 20px rgba(16,185,129,0.35),
+                0 0 45px rgba(16,185,129,0.18);
+
+            transition: 0.45s ease;
         }
 
-       .project-card:hover {
-            transform: translateY(-8px);
 
-            border-color: #10B981;
+        /* Pattern Overlay */
+
+        .project-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background: url("./image/bd.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            opacity: 0.38;
+
+            z-index: 0;
+        }
+
+
+        /* Content Above Animation */
+
+        .project-card > * {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* Hover Animation */
+
+        .project-card:hover {
+
+            transform: translateY(-10px);
 
             box-shadow:
-                0 10px 35px rgba(16, 185, 129, 0.30);
+                0 0 35px #10B981,
+                0 0 70px rgba(16,185,129,0.45);
         }
 
         /* ==============================

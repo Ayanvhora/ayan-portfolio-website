@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | MAHAMMADAYAN</title>
+
+    <!-- Main Website CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <style>
+
+        /* ==========================================
+           CONTACT SECTION
+        ========================================== */
+
+        .contact-section {
+
+            min-height: 80vh;
+
+            padding: 100px 6%;
+
+            text-align: center;
+
+            color: white;
+
+        }
+
+
+        /* TITLE */
+
+        .contact-title {
+
+            font-size: 60px;
+
+            color: #10B981;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* SUBTITLE */
+
+        .contact-subtitle {
+
+            font-size: 20px;
+
+            color: #d7fdf1;
+
+            margin-bottom: 50px;
+
+        }
+
+
+       /* ==========================================
+        CONTACT CARD - 4 CARDS IN ONE LINE
+        ========================================== */
+
+        .contact-card {
+            max-width: 1150px;
+            margin: 50px auto 0;
+            padding: 35px;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+
+            background:
+                linear-gradient(
+                    rgba(2,44,34,0.45),
+                    rgba(2,44,34,0.45)
+                ),
+                url("./image/bd.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            border: 2px solid #10B981;
+            border-radius: 25px;
+
+            box-shadow:
+                0 0 25px rgba(16,185,129,0.35),
+                0 0 55px rgba(16,185,129,0.15);
+        }
+
+
+       /* ==========================================
+        INDIVIDUAL CONTACT CARD
+        ========================================== */
+
+        .contact-item {
+            min-height: 180px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            gap: 15px;
+            padding: 25px 15px;
+
+            text-decoration: none;
+            text-align: center;
+            color: white;
+
+            background: rgba(0, 0, 0, 0.38);
+
+            border: 1px solid rgba(16,185,129,0.55);
+            border-radius: 18px;
+
+            transition: 0.4s ease;
+        }
+
+
+        .contact-item i {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #10B981;
+            color: white;
+
+            font-size: 28px;
+            flex-shrink: 0;
+
+            transition: 0.4s ease;
+        }
+
+
+        /* ==========================================
+           TEXT
+        ========================================== */
+
+        .contact-item h3 {
+
+            margin: 0 0 6px;
+
+            color: #10B981;
+
+            font-size: 22px;
+
+        }
+
+
+        .contact-item p {
+
+            margin: 0;
+
+            color: #e5e7eb;
+
+            font-size: 15px;
+
+        }
+
+
+        /* ==========================================
+           HOVER
+        ========================================== */
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+
+            border-color: #10B981;
+
+            box-shadow:
+                0 0 20px rgba(16,185,129,0.55),
+                0 0 45px rgba(16,185,129,0.25);
+        }
+
+        .contact-item:hover i {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(16,185,129,0.6);
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+       @media (max-width: 900px) {
+            .contact-card {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 550px) {
+            .contact-card {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .contact-item {
+                min-height: 160px;
+            }
+        }
+
+
+            .contact-item {
+
+                padding: 20px;
+
+            }
+
+        
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         NAVBAR
+    ========================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            MAHAMMADAYAN
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+
+            <li>
+                <a href="resume.html">
+                    Resume & Certificates
+                </a>
+            </li>
+
+
+            <li>
+                <a href="skills.html">
+                    Skills
+                </a>
+            </li>
+
+
+            <li>
+                <a href="projects.html">
+                    Projects
+                </a>
+            </li>
+
+
+            <li>
+                <a href="contact.html">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- ==========================================
+         CONTACT SECTION
+    ========================================== -->
+
+    <section class="contact-section">
+
+
+        <h1 class="contact-title">
+            Contact Me
+        </h1>
+
+
+        <p class="contact-subtitle">
+            Open to new opportunities, collaborations, and exciting data-driven projects.
+            Feel free to connect with me and let's create something meaningful together.
+        </p>
+
+
+        <div class="contact-card">
+
+
+            <!-- LinkedIn -->
+
+            <a
+                href="https://www.linkedin.com/in/mahammadayan-vhora-80115842b/"
+                target="_blank"
+                class="contact-item linkedin"
+            >
+
+                <i class="fa-brands fa-linkedin-in"></i>
+
+
+                <div>
+
+                    <h3>
+                        LinkedIn
+                    </h3>
+
+                    <p>
+                        Connect with me
+                    </p>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- GitHub -->
+
+            <a
+                href="https://github.com/Ayanvhora"
+                target="_blank"
+                class="contact-item github"
+            >
+
+                <i class="fa-brands fa-github"></i>
+
+
+                <div>
+
+                    <h3>
+                        GitHub
+                    </h3>
+
+                    <p>
+                        View my projects
+                    </p>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- Gmail -->
+
+            <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=vhoraayan000@gmail.com"
+                target="_blank"
+                class="contact-item gmail"
+            >
+                <i class="fa-solid fa-envelope"></i>
+
+                <div>
+                    <h3>Email</h3>
+                    <p>Send me an email</p>
+                </div>
+            </a>
+                        </a>
+
+
+
+            <!-- WhatsApp -->
+
+            <a
+                href="https://wa.me/919714582698"
+                target="_blank"
+                class="contact-item whatsapp"
+            >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+
+                <div>
+
+                    <h3>
+                        WhatsApp
+                    </h3>
+
+                    <p>
+                        Chat with me
+                    </p>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>
