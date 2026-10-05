@@ -151,12 +151,155 @@
             </div>
 
         </section>
+        <!-- Certificate Section -->
+        <section id="certificateSection" style="display:none;">
 
+            <h2>Certificate Management</h2>
+
+            <input
+                type="text"
+                id="certificateTitle"
+                placeholder="Certificate Name">
+
+            <br><br>
+
+            <input
+                type="file"
+                id="certificateFile"
+                accept=".pdf,.jpg,.jpeg,.png">
+
+            <br><br>
+
+            <button id="uploadCertificateBtn">
+                Upload Certificate
+            </button>
+
+            <hr>
+
+            <h3>Uploaded Certificates</h3>
+
+            <div id="certificateList">
+
+                No Certificate Uploaded
+
+            </div>
+
+        </section>
+        <!-- Project Section -->
+
+        <section id="projectSection" style="display:none;">
+
+            <h2>Project Management</h2>
+
+            <div class="project-form">
+
+                <!-- Project Image -->
+                <label>Project Image</label>
+
+                <input
+                    type="file"
+                    id="projectImage"
+                    accept=".jpg,.jpeg,.png,.webp">
+
+                <br><br>
+
+
+                <!-- Project Title -->
+                <label>Project Title</label>
+
+                <input
+                    type="text"
+                    id="projectTitle"
+                    placeholder="Enter Project Title">
+
+                <br><br>
+
+
+                <!-- Project Description -->
+                <label>Project Description</label>
+
+                <textarea
+                    id="projectDescription"
+                    rows="6"
+                    placeholder="Enter complete project description"></textarea>
+
+                <br><br>
+
+
+                <!-- Technologies -->
+                <label>Technologies Used</label>
+
+                <input
+                    type="text"
+                    id="projectTechnologies"
+                    placeholder="Example: Python, Excel, Power BI, SQL">
+
+                <br><br>
+
+
+                <!-- Project Files -->
+                <label>Project Files</label>
+
+                <input
+                    type="file"
+                    id="projectFiles"
+                    multiple
+                    accept=".py,.ipynb,.xlsx,.xls,.csv,.sql,.pbix,.doc,.docx,.pdf,.ppt,.pptx">
+
+                <small>
+                    You can select multiple project files.
+                </small>
+
+                <br><br>
+
+
+                <!-- Project Summary -->
+                <label>Project Summary</label>
+
+                <textarea
+                    id="projectSummary"
+                    rows="6"
+                    placeholder="Enter project summary"></textarea>
+
+                <br><br>
+
+
+                <!-- Project Link -->
+                <label>Project Link (Optional)</label>
+
+                <input
+                    type="url"
+                    id="projectLink"
+                    placeholder="https://github.com/...">
+
+                <br><br>
+
+
+                <!-- Upload -->
+                <button id="uploadProjectBtn">
+                    ➕ Add Project
+                </button>
+
+            </div>
+
+            <hr>
+
+            <h3>My Projects</h3>
+
+            <div id="projectList">
+
+                No Project Added
+
+            </div>
+
+        </section>
     </main>
 
 </div>
 
 <script type="module" src="js/dashboard.js"></script>
+<script type="module" src="js/certificate.js"></script>
+<script type="module" src="js/project.js"></script>
 
 </body>
 </html>

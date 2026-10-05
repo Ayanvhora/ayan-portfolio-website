@@ -1,175 +1,1019 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects | AMMAN456</title>
 
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
 
-<style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-body{
-color:white;
-font-family:Arial,sans-serif;
+    <title>Projects | AMMAN456</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        body {
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ==============================
+           PROJECT SECTION
+        ============================== */
+
+        .projects {
+            padding: 80px 6%;
+            background: #111827;
+            min-height: 100vh;
+        }
+
+        .projects-title {
+            text-align: center;
+            font-size: 60px;
+            color: #10B981;
+            margin-bottom: 60px;
+        }
+
+        /* ==============================
+           PROJECT GRID
+        ============================== */
+
+        #projectsContainer {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 25px;
+
+            max-width: 1050px;
+
+            margin: auto;
+        }
+
+        /* ==============================
+           PROJECT CARD
+        ============================== */
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(16, 185, 129, 0.25);
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 0 20px rgba(16, 185, 129, 0.12);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+        }
+
+       .project-card:hover {
+            transform: translateY(-8px);
+
+            border-color: #10B981;
+
+            box-shadow:
+                0 10px 35px rgba(16, 185, 129, 0.30);
+        }
+
+        /* ==============================
+           PROJECT IMAGE
+        ============================== */
+
+        .project-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.03);
+        }
+
+        /* ==============================
+           PROJECT CONTENT
+        ============================== */
+
+        .project-content {
+
+            padding: 18px;
+        }
+        .project-card h2 {
+
+            color: #10B981;
+
+            font-size: 21px;
+
+            margin-bottom: 10px;
+        }
+
+       .project-description {
+            color: #e5e7eb;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+
+            height: 63px;
+
+            overflow: hidden;
+        }
+
+        .project-tech {
+
+            color: #cbd5e1;
+
+            line-height: 1.6;
+
+            margin-bottom: 20px;
+        }
+
+        .project-tech strong {
+
+            color: #10B981;
+        }
+
+        /* ==============================
+           BUTTONS
+        ============================== */
+
+        .project-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .project-btn {
+
+            display: inline-block;
+
+            padding: 11px 17px;
+
+            background: #10B981;
+
+            color: white;
+
+            text-decoration: none;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        .project-btn:hover {
+
+            background: #059669;
+        }
+
+        .link-btn {
+
+            background: #3B82F6;
+        }
+
+        .link-btn:hover {
+
+            background: #2563EB;
+        }
+
+        /* ==============================
+           LOADING
+        ============================== */
+
+        .loading {
+
+            text-align: center;
+
+            font-size: 22px;
+
+            color: #10B981;
+
+            padding: 50px;
+        }
+
+        .no-projects {
+
+            text-align: center;
+
+            font-size: 22px;
+
+            color: #94a3b8;
+
+            padding: 50px;
+        }
+
+        /* ==============================
+           MODAL
+        ============================== */
+
+        .project-modal {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background: #0f172a;
+
+            z-index: 99999;
+
+            overflow-y: auto;
+
+            box-sizing: border-box;
+        }
+
+        .project-modal-content {
+
+            background: #0f172a;
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            box-sizing: border-box;
+
+            padding: 50px 8% 70px;
+
+            position: relative;
+
+            overflow-y: auto;
+        }
+
+        .modal-close {
+
+            position: fixed;
+
+            right: 25px;
+
+            top: 20px;
+
+            background: #ef4444;
+
+            color: white;
+
+            border: none;
+
+            width: 45px;
+
+            height: 45px;
+
+            border-radius: 50%;
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+            z-index: 100000;
+        }
+
+.modal-close:hover {
+
+    background: #dc2626;
+
+    transform: scale(1.08);
 }
 
-.projects{
-padding:100px 10%;
-background:transparent;
-min-height:100vh;
-}
+        .modal-close:hover {
 
-.project-card{
-width:500px;
-margin:auto;
-background:rgba(30,41,59,0.8);
-backdrop-filter:blur(10px);
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 0 20px rgba(59,130,246,.3);
-transition:.4s;
-}
+            background: #dc2626;
+        }
 
+        .modal-image {
 
-.project-card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 30px rgba(59,130,246,.4);
-}
+            width: 100%;
 
-.project-card img{
-width:100%;
-max-width:500px;
-border-radius:15px;
-display:block;
-margin:auto;
-}
+            max-width: 1100px;
 
-.project-card h2{
-color:#3B82F6;
-margin-top:20px;
-}
+            height: 420px;
 
-.project-card p{
-font-size:18px;
-line-height:1.8;
-}
+            object-fit: cover;
 
-.btn{
-display:inline-block;
-margin-top:20px;
-padding:12px 25px;
-background:#3B82F6;
-color:white;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-}
+            border-radius: 18px;
 
-.btn:hover{
-background:#2563EB;
-}
-.projects{
-padding:100px 10%;
-background:#111827;
-min-height:100vh;
-}
+            display: block;
 
-.projects-title{
-text-align:center;
-font-size:70px;
-color:#10B981;
-margin-bottom:50px;
-}
+            margin: 0 auto 35px;
+        }
 
-.project-card{
-width:500px;
-margin:auto;
-background:#1E293B;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 0 20px rgba(59,130,246,.3);
-transition:.4s;
-}
+        .project-modal-content h2 {
 
-.project-card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 30px rgba(59,130,246,.6);
-}
+            color: #10B981;
 
-.project-card img{
-width:100%;
-height:280px;
-object-fit:cover;
-}
+            font-size: 32px;
 
-.project-card h2{
-color:#10B981;
-padding:20px 20px 10px;
-font-size:32px;
-}
+            margin-bottom: 25px;
+        }
 
-.project-card p{
-padding:0 20px;
-font-size:20px;
-line-height:1.7;
-}
+        .project-modal-content h3 {
 
-.btn{
-display:inline-block;
-margin:20px;
-padding:12px 25px;
-background:#10B981;
-color:white;
-text-decoration:none;
-border-radius:10px;
-font-weight:bold;
-}
+            color: #10B981;
 
+            margin-top: 25px;
 
-</style>
+            margin-bottom: 10px;
+        }
+
+        .project-modal-content p {
+
+            color: #e5e7eb;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+        }
+
+        /* ==============================
+           FILE LIST
+        ============================== */
+
+        .modal-files {
+
+            margin-top: 15px;
+        }
+
+        .modal-file {
+
+            background: #0f172a;
+
+            border: 1px solid #334155;
+
+            border-radius: 8px;
+
+            padding: 12px;
+
+            margin-bottom: 10px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .modal-file span {
+
+            color: white;
+
+            word-break: break-word;
+        }
+
+        .file-open-btn {
+
+            background: #3B82F6;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 7px 12px;
+
+            border-radius: 6px;
+
+            font-size: 13px;
+
+            white-space: nowrap;
+        }
+
+        .file-open-btn:hover {
+
+            background: #2563EB;
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 700px) {
+
+            .projects {
+
+                padding: 60px 5%;
+            }
+
+            .projects-title {
+
+                font-size: 42px;
+            }
+
+            .project-card h2 {
+
+                font-size: 22px;
+            }
+
+            .project-modal-content {
+
+                width: 95%;
+
+                padding: 20px;
+            }
+
+            .modal-file {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .file-open-btn {
+
+                width: 100%;
+
+                text-align: center;
+            }
+        }
+
+    </style>
+
 </head>
 
+
 <body>
-<nav class="navbar">
 
-<div class="logo">MAHAMMADAYAN</div>
+    <!-- ==============================
+         NAVBAR
+    ============================== -->
 
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="resume.html">Resume & Certificates</a></li>
-<li><a href="skills.html">Skills</a></li>
-<li><a href="projects.html">Projects</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
+    <nav class="navbar">
 
-</nav>
+        <div class="logo">
+            MAHAMMADAYAN
+        </div>
 
-<section class="projects">
+        <ul>
 
-<h1 class="projects-title">
-My Projects
-</h1>
+            <li>
+                <a href="index.html">Home</a>
+            </li>
 
-<div class="project-card">
+            <li>
+                <a href="resume.html">
+                    Resume & Certificates
+                </a>
+            </li>
 
-<img src="image/hr_project.jpg" alt="HR Project">
+            <li>
+                <a href="skills.html">
+                    Skills
+                </a>
+            </li>
 
-<h2>HR Data Cleaning & Analysis</h2>
+            <li>
+                <a href="projects.html">
+                    Projects
+                </a>
+            </li>
 
-<p>
-Cleaned a messy HR dataset using Python,
-Pandas, NumPy and Jupyter Notebook.
-Performed Data Cleaning, EDA and Data Visualization.
-</p>
+            <li>
+                <a href="contact.html">
+                    Contact
+                </a>
+            </li>
 
-<a href="hr_project.html" class="btn">
-View Project
-</a>
+        </ul>
 
-</div>
+    </nav>
 
-</section>
+
+    <!-- ==============================
+         PROJECT SECTION
+    ============================== -->
+
+    <section class="projects">
+
+        <h1 class="projects-title">
+            My Projects
+        </h1>
+
+
+        <!-- Firebase se projects yahan load honge -->
+
+        <div id="projectsContainer">
+
+            <div class="loading">
+                Loading Projects...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         FIREBASE PROJECT SCRIPT
+    ============================== -->
+
+    <script type="module">
+
+        import { db } from "./js/firebase.js";
+
+        import {
+
+            collection,
+
+            getDocs
+
+        } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+
+        // ==========================================
+        // PROJECT CONTAINER
+        // ==========================================
+
+        const projectsContainer =
+            document.getElementById("projectsContainer");
+
+
+        // ==========================================
+        // ESCAPE HTML
+        // ==========================================
+
+        function escapeHTML(value) {
+
+            if (value === undefined || value === null) {
+
+                return "";
+
+            }
+
+            return String(value)
+
+                .replace(/&/g, "&amp;")
+
+                .replace(/</g, "&lt;")
+
+                .replace(/>/g, "&gt;")
+
+                .replace(/"/g, "&quot;")
+
+                .replace(/'/g, "&#039;");
+        }
+
+
+        // ==========================================
+        // LOAD PROJECTS
+        // ==========================================
+
+        async function loadProjects() {
+
+            try {
+
+                const snapshot =
+                    await getDocs(
+                        collection(db, "projects")
+                    );
+
+
+                // ==================================
+                // NO PROJECT
+                // ==================================
+
+                if (snapshot.empty) {
+
+                    projectsContainer.innerHTML = `
+
+                        <div class="no-projects">
+
+                            No Projects Available
+
+                        </div>
+
+                    `;
+
+                    return;
+                }
+
+
+                // ==================================
+                // PROJECT ARRAY
+                // ==================================
+
+                const projects = [];
+
+
+                snapshot.forEach((docItem) => {
+
+                    projects.push({
+
+                        id: docItem.id,
+
+                        ...docItem.data()
+
+                    });
+
+                });
+
+
+                // ==================================
+                // SORT BY ORDER
+                // ==================================
+
+                projects.sort((a, b) => {
+
+                    return (
+
+                        (Number(a.order) || 999999)
+
+                        -
+
+                        (Number(b.order) || 999999)
+
+                    );
+
+                });
+
+
+                // ==================================
+                // CLEAR CONTAINER
+                // ==================================
+
+                projectsContainer.innerHTML = "";
+
+
+                // ==================================
+                // CREATE PROJECT CARDS
+                // ==================================
+
+                projects.forEach((project) => {
+
+                    const card =
+                        document.createElement("div");
+
+                    card.className =
+                        "project-card";
+
+
+                    card.innerHTML = `
+
+                        <img
+                            src="${escapeHTML(project.imageUrl)}"
+                            alt="${escapeHTML(project.title)}"
+                        >
+
+                        <div class="project-content">
+
+                            <h2>
+                                ${escapeHTML(project.title)}
+                            </h2>
+
+                            <p class="project-description">
+                                ${escapeHTML(project.description)}
+                            </p>
+
+                            <p class="project-tech">
+
+                                <strong>
+                                    Technologies:
+                                </strong>
+
+                                ${escapeHTML(project.technologies)}
+
+                            </p>
+
+                            <div class="project-buttons">
+
+                                <button
+                                    class="project-btn view-details-btn"
+                                    data-id="${project.id}"
+                                >
+                                    👁 View Project
+                                </button>
+
+                                ${
+                                    project.projectLink
+                                    ?
+                                    `
+                                    <a
+                                        href="${escapeHTML(project.projectLink)}"
+                                        target="_blank"
+                                        class="project-btn link-btn"
+                                    >
+                                        🔗 Project Link
+                                    </a>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    projectsContainer.appendChild(card);
+
+                });
+
+
+                // ==================================
+                // VIEW PROJECT BUTTONS
+                // ==================================
+
+                const viewButtons =
+                    document.querySelectorAll(
+                        ".view-details-btn"
+                    );
+
+
+                viewButtons.forEach((button) => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const projectId =
+                                button.getAttribute(
+                                    "data-id"
+                                );
+
+
+                            const selectedProject =
+                                projects.find(
+                                    project =>
+                                        project.id ===
+                                        projectId
+                                );
+
+
+                            if (!selectedProject) {
+
+                                return;
+
+                            }
+
+
+                            showProjectDetails(
+                                selectedProject
+                            );
+
+                        }
+                    );
+
+                });
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Project Loading Error:",
+                    error
+                );
+
+
+                projectsContainer.innerHTML = `
+
+                    <div class="no-projects">
+
+                        Unable to load projects.
+
+                        <br><br>
+
+                        Please check Firebase connection.
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        // ==========================================
+        // SHOW PROJECT DETAILS
+        // ==========================================
+
+        function showProjectDetails(project) {
+
+            let filesHTML = "";
+
+
+            // ==================================
+            // PROJECT FILES
+            // ==================================
+
+            if (
+                project.files &&
+                project.files.length > 0
+            ) {
+
+                filesHTML =
+                    project.files.map((file) => {
+
+                        return `
+
+                            <div class="modal-file">
+
+                                <span>
+                                    📄
+                                    ${escapeHTML(file.name)}
+                                </span>
+
+                                <a
+                                    href="${escapeHTML(file.url)}"
+                                    target="_blank"
+                                    class="file-open-btn"
+                                >
+                                    Open File
+                                </a>
+
+                            </div>
+
+                        `;
+
+                    }).join("");
+
+            }
+
+            else {
+
+                filesHTML = `
+
+                    <p>
+                        No project files uploaded.
+                    </p>
+
+                `;
+
+            }
+
+
+            // ==================================
+            // CREATE MODAL
+            // ==================================
+
+            const modal =
+                document.createElement("div");
+
+            modal.className =
+                "project-modal";
+
+
+            modal.innerHTML = `
+
+                <div class="project-modal-content">
+
+                    <button
+                        class="modal-close"
+                    >
+                        ✕
+                    </button>
+
+
+                    <img
+                        src="${escapeHTML(project.imageUrl)}"
+                        class="modal-image"
+                        alt="${escapeHTML(project.title)}"
+                    >
+
+
+                    <h2>
+                        ${escapeHTML(project.title)}
+                    </h2>
+
+
+                    <h3>
+                        📄 Project Description
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(project.description)}
+                    </p>
+
+
+                    <h3>
+                        🛠️ Technologies Used
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(project.technologies)}
+                    </p>
+
+
+                    <h3>
+                        📁 Project Files
+                    </h3>
+
+                    <div class="modal-files">
+
+                        ${filesHTML}
+
+                    </div>
+
+
+                    <h3>
+                        📋 Project Summary
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(project.summary)}
+                    </p>
+
+
+                    ${
+                        project.projectLink
+                        ?
+                        `
+
+                        <br>
+
+                        <a
+                            href="${escapeHTML(project.projectLink)}"
+                            target="_blank"
+                            class="project-btn link-btn"
+                        >
+                            🔗 View Project Link
+                        </a>
+
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+            `;
+
+
+            document.body.appendChild(modal);
+
+
+            // ==================================
+            // CLOSE BUTTON
+            // ==================================
+
+            const closeButton =
+                modal.querySelector(
+                    ".modal-close"
+                );
+
+
+            closeButton.addEventListener(
+                "click",
+                () => {
+
+                    modal.remove();
+
+                }
+            );
+
+
+            // ==================================
+            // CLICK OUTSIDE
+            // ==================================
+
+            modal.addEventListener(
+                "click",
+                (event) => {
+
+                    if (
+                        event.target === modal
+                    ) {
+
+                        modal.remove();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        // ==========================================
+        // INITIAL LOAD
+        // ==========================================
+
+        loadProjects();
+
+    </script>
 
 </body>
+
 </html>

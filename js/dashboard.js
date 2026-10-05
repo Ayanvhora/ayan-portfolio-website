@@ -17,21 +17,68 @@ logoutBtn.addEventListener("click", async () => {
 });
 
 // Navigation
+
 const dashboardMenu = document.getElementById("dashboardMenu");
 const resumeMenu = document.getElementById("resumeMenu");
+const certificateMenu = document.getElementById("certificateMenu");
+const projectMenu = document.getElementById("projectMenu");
+const projectSection = document.getElementById("projectSection");
 
 const dashboardSection = document.getElementById("dashboardSection");
 const resumeSection = document.getElementById("resumeSection");
+const certificateSection = document.getElementById("certificateSection");
+// Certificate Elements
+
+const certificateTitle = document.getElementById("certificateTitle");
+const certificateFile = document.getElementById("certificateFile");
+const uploadCertificateBtn = document.getElementById("uploadCertificateBtn");
+const certificateList = document.getElementById("certificateList");
+
+uploadCertificateBtn.addEventListener("click", () => {
+
+    const title = certificateTitle.value.trim();
+    const file = certificateFile.files[0];
+
+    if (!title || !file) {
+        alert("Please enter certificate name and choose a file.");
+        return;
+    }
+
+    alert("Next Step: Upload to Cloudinary");
+
+});
 
 dashboardMenu.addEventListener("click", () => {
+
     dashboardSection.style.display = "block";
     resumeSection.style.display = "none";
+    certificateSection.style.display = "none";
+    projectSection.style.display = "none";
+
 });
 
 resumeMenu.addEventListener("click", () => {
 
     dashboardSection.style.display = "none";
     resumeSection.style.display = "block";
+    certificateSection.style.display = "none";
+    projectSection.style.display = "none";
+
+});
+certificateMenu.addEventListener("click", () => {
+
+    dashboardSection.style.display = "none";
+    resumeSection.style.display = "none";
+    certificateSection.style.display = "block";
+    projectSection.style.display = "none";
+
+});
+projectMenu.addEventListener("click", () => {
+
+    dashboardSection.style.display = "none";
+    resumeSection.style.display = "none";
+    certificateSection.style.display = "none";
+    projectSection.style.display = "block";
 
 });
 // ==========================
