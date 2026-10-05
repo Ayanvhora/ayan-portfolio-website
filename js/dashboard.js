@@ -185,3 +185,61 @@ async function loadResume() {
 
 }
 loadResume();
+// ==========================================
+// DASHBOARD HORIZONTAL CARD NAVIGATION
+// ==========================================
+
+const resumeCard = document.getElementById("resumeCard");
+const certificateCard = document.getElementById("certificateCard");
+const projectCard = document.getElementById("projectCard");
+const profileCard = document.getElementById("profileCard");
+const contactCard = document.getElementById("contactCard");
+const settingsCard = document.getElementById("settingsCard");
+
+
+// Resume Card
+if (resumeCard && resumeMenu) {
+    resumeCard.addEventListener("click", () => {
+        resumeMenu.click();
+    });
+}
+
+
+// Certificate Card
+if (certificateCard && certificateMenu) {
+    certificateCard.addEventListener("click", () => {
+        certificateMenu.click();
+    });
+}
+
+
+// Project Card
+if (projectCard && projectMenu) {
+    projectCard.addEventListener("click", () => {
+        projectMenu.click();
+    });
+}
+
+
+// Profile Card
+if (profileCard && profileMenu) {
+    profileCard.addEventListener("click", () => {
+        profileMenu.click();
+    });
+}
+
+
+// Contact Card
+if (contactCard && contactMenu) {
+    contactCard.addEventListener("click", () => {
+        contactMenu.click();
+    });
+}
+
+
+// Settings Card
+if (settingsCard && settingsMenu) {
+    settingsCard.addEventListener("click", () => {
+        settingsMenu.click();
+    });
+}
