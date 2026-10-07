@@ -821,3 +821,58 @@ body{
     }
 
 }
+/* ==========================================
+   MULTIPLE PROJECT LINKS
+========================================== */
+
+.project-link-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr auto;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.project-link-row input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.remove-project-link {
+    border: none;
+    background: #dc2626;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.remove-project-link:hover {
+    background: #b91c1c;
+}
+
+#addProjectLinkBtn {
+    margin-top: 5px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #10B981;
+    color: white;
+    cursor: pointer;
+}
+
+#addProjectLinkBtn:hover {
+    background: #059669;
+}
+
+@media (max-width: 700px) {
+
+    .project-link-row {
+        grid-template-columns: 1fr;
+    }
+
+    .remove-project-link {
+        width: fit-content;
+    }
+
+}

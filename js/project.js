@@ -33,8 +33,11 @@ const projectFiles =
 const projectSummary =
     document.getElementById("projectSummary");
 
-const projectLink =
-    document.getElementById("projectLink");
+const projectLinksContainer =
+    document.getElementById("projectLinksContainer");
+
+const addProjectLinkBtn =
+    document.getElementById("addProjectLinkBtn");
 
 const uploadProjectBtn =
     document.getElementById("uploadProjectBtn");
@@ -109,7 +112,91 @@ async function uploadToCloudinary(file, type = "file") {
 
 }
 
+// ==========================================
+// MULTIPLE PROJECT LINKS
+// ==========================================
 
+function addProjectLinkRow(name = "", url = "") {
+
+    const row = document.createElement("div");
+
+    row.className = "project-link-row";
+
+    row.innerHTML = `
+        <input
+            type="text"
+            class="project-link-name"
+            placeholder="Link Name e.g. GitHub Repository"
+            value="${name.replace(/"/g, "&quot;")}">
+
+        <input
+            type="url"
+            class="project-link-url"
+            placeholder="https://..."
+            value="${url.replace(/"/g, "&quot;")}">
+
+        <button
+            type="button"
+            class="remove-project-link"
+            title="Remove Link">
+            🗑
+        </button>
+    `;
+
+    row.querySelector(".remove-project-link")
+        .addEventListener("click", () => {
+
+            row.remove();
+
+        });
+
+    projectLinksContainer.appendChild(row);
+}
+
+
+// Add Another Link
+addProjectLinkBtn.addEventListener("click", () => {
+
+    addProjectLinkRow();
+
+});
+
+
+// Get all links
+function getProjectLinks() {
+
+    const rows =
+        projectLinksContainer.querySelectorAll(
+            ".project-link-row"
+        );
+
+    const links = [];
+
+    rows.forEach(row => {
+
+        const name =
+            row.querySelector(
+                ".project-link-name"
+            ).value.trim();
+
+        const url =
+            row.querySelector(
+                ".project-link-url"
+            ).value.trim();
+
+        if (name && url) {
+
+            links.push({
+                name: name,
+                url: url
+            });
+
+        }
+
+    });
+
+    return links;
+}
 // ==========================================
 // ADD PROJECT
 // ==========================================
@@ -133,8 +220,8 @@ uploadProjectBtn.addEventListener(
         const summary =
             projectSummary.value.trim();
 
-        const link =
-            projectLink.value.trim();
+        const projectLinks =
+            getProjectLinks();
 
         const files =
             Array.from(projectFiles.files);
@@ -303,8 +390,8 @@ uploadProjectBtn.addEventListener(
                     summary:
                         summary,
 
-                    projectLink:
-                        link,
+                    projectLinks:
+                        projectLinks,
 
                     order:
                         projectOrder,
@@ -339,7 +426,9 @@ uploadProjectBtn.addEventListener(
 
             projectSummary.value = "";
 
-            projectLink.value = "";
+            projectLinksContainer.innerHTML = "";
+
+            addProjectLinkRow();
 
 
             // RELOAD

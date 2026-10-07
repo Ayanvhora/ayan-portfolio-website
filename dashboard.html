@@ -270,13 +270,39 @@
                 <br><br>
 
 
-                <!-- Project Link -->
-                <label>Project Link (Optional)</label>
+                <!-- Project Links -->
+                <label>Project Links</label>
 
-                <input
-                    type="url"
-                    id="projectLink"
-                    placeholder="https://github.com/...">
+                <div id="projectLinksContainer">
+
+                    <div class="project-link-row">
+
+                        <input
+                            type="text"
+                            class="project-link-name"
+                            placeholder="Link Name e.g. GitHub Repository">
+
+                        <input
+                            type="url"
+                            class="project-link-url"
+                            placeholder="https://...">
+
+                        <button
+                            type="button"
+                            class="remove-project-link"
+                            title="Remove Link">
+                            🗑
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="addProjectLinkBtn">
+                    ➕ Add Another Link
+                </button>
 
                 <br><br>
 
