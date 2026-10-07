@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" href="data:,">
 
     <meta charset="UTF-8">
 
@@ -746,22 +747,6 @@
                                     👁 View Project
                                 </button>
 
-                                ${
-                                    project.projectLink
-                                    ?
-                                    `
-                                    <a
-                                        href="${escapeHTML(project.projectLink)}"
-                                        target="_blank"
-                                        class="project-btn link-btn"
-                                    >
-                                        🔗 Project Link
-                                    </a>
-                                    `
-                                    :
-                                    ""
-                                }
-
                             </div>
 
                         </div>
@@ -981,31 +966,43 @@
 
 
                     ${
-                        project.projectLink
-                        ?
-                        `
+                        project.projectLinks &&
+                        project.projectLinks.length > 0
+                            ? `
+                                <div class="project-links-section">
 
-                        <br>
+                                    <h3>
+                                        🔗 Project Links
+                                    </h3>
 
-                        <a
-                            href="${escapeHTML(project.projectLink)}"
-                            target="_blank"
-                            class="project-btn link-btn"
-                        >
-                            🔗 View Project Link
-                        </a>
+                                    <div class="project-links-list">
 
-                        `
-                        :
-                        ""
+                                        ${
+                                            project.projectLinks
+                                                .map(
+                                                    (link) => `
+                                                        <a
+                                                            href="${escapeHTML(link.url)}"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            class="project-btn link-btn"
+                                                        >
+                                                            🔗 ${escapeHTML(link.name)}
+                                                        </a>
+                                                    `
+                                                )
+                                                .join("")
+                                        }
+
+                                    </div>
+
+                                </div>
+                            `
+                            : ""
                     }
-
-                </div>
-
             `;
 
-
-            document.body.appendChild(modal);
+        document.body.appendChild(modal);
 
 
             // ==================================

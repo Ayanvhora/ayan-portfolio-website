@@ -127,7 +127,8 @@ function addProjectLinkRow(name = "", url = "") {
             type="text"
             class="project-link-name"
             placeholder="Link Name e.g. GitHub Repository"
-            value="${name.replace(/"/g, "&quot;")}">
+            value="
+            name.replace(/"/g, "&quot;")}">
 
         <input
             type="url"
@@ -1924,32 +1925,44 @@ function showProjectDetails(project) {
 
 
             ${
-                project.projectLink
+                project.projectLinks &&
+                project.projectLinks.length > 0
                 ?
                 `
+                    <div class="project-links-section">
 
-                    <a
-                        href="${project.projectLink}"
-                        target="_blank"
-                        class="github-project-btn"
-                    >
-                        🔗 View Project Link
-                    </a>
+                        <h3>
+                            🔗 Project Links
+                        </h3>
 
+                        <div class="project-links-list">
+
+                            ${
+                                project.projectLinks.map(
+                                    (link) => `
+                                        <a
+                                            href="${link.url}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="github-project-btn"
+                                        >
+                                            🔗 ${link.name}
+                                        </a>
+                                    `
+                                ).join("")
+                            }
+
+                        </div>
+
+                    </div>
                 `
                 :
-                ""
+             ""
             }
-
-
-        </div>
-
-    `;
-
-
+        `;
     document.body.appendChild(
         modal
-    );
+);
 
 
     // ==================================
@@ -1997,5 +2010,4 @@ function showProjectDetails(project) {
 // ==========================================
 // INITIAL LOAD
 // ==========================================
-
 loadProjects();
