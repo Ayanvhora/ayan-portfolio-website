@@ -204,6 +204,16 @@ function getProjectLinks() {
 uploadProjectBtn.addEventListener(
     "click",
     async () => {
+                // ==================================
+        // CHECK EDIT MODE
+        // ==================================
+
+        if (editingProjectId) {
+
+            await updateExistingProject();
+
+            return;
+        }
 
         const image =
             projectImage.files[0];
@@ -462,7 +472,265 @@ uploadProjectBtn.addEventListener(
 
     }
 );
+// ==========================================
+// UPDATE EXISTING PROJECT
+// ==========================================
 
+async function updateExistingProject() {
+
+    if (!editingProjectId || !editingProject) {
+        return;
+    }
+
+    const title =
+        projectTitle.value.trim();
+
+    const description =
+        projectDescription.value.trim();
+
+    const technologies =
+        projectTechnologies.value.trim();
+
+    const summary =
+        projectSummary.value.trim();
+
+    const projectLinks =
+        getProjectLinks();
+
+    const newImage =
+        projectImage.files[0];
+
+    const newFiles =
+        Array.from(projectFiles.files);
+
+
+    // ==================================
+    // VALIDATION
+    // ==================================
+
+    if (!title) {
+        alert("Please enter project title.");
+        return;
+    }
+
+    if (!description) {
+        alert("Please enter project description.");
+        return;
+    }
+
+    if (!technologies) {
+        alert("Please enter technologies used.");
+        return;
+    }
+
+    if (!summary) {
+        alert("Please enter project summary.");
+        return;
+    }
+
+
+    try {
+
+        uploadProjectBtn.disabled = true;
+
+        uploadProjectBtn.innerText =
+            "Updating Project...";
+
+
+        // ==================================
+        // KEEP OLD IMAGE
+        // ==================================
+
+        let imageUrl =
+            editingProject.imageUrl || "";
+
+        let imagePublicId =
+            editingProject.imagePublicId || "";
+
+
+        // ==================================
+        // NEW IMAGE IF SELECTED
+        // ==================================
+
+        if (newImage) {
+
+            const imageData =
+                await uploadToCloudinary(
+                    newImage,
+                    "image"
+                );
+
+            imageUrl =
+                imageData.secure_url;
+
+            imagePublicId =
+                imageData.public_id;
+        }
+
+
+        // ==================================
+        // KEEP OLD FILES
+        // ==================================
+
+        let updatedFiles = [
+            ...(editingProject.files || [])
+        ];
+
+
+        // ==================================
+        // ADD NEW FILES
+        // ==================================
+
+        for (const file of newFiles) {
+
+            const fileData =
+                await uploadToCloudinary(
+                    file,
+                    "file"
+                );
+
+            updatedFiles.push({
+
+                name:
+                    file.name,
+
+                url:
+                    fileData.secure_url,
+
+                publicId:
+                    fileData.public_id,
+
+                resourceType:
+                    fileData.resource_type
+
+            });
+
+        }
+
+
+        // ==================================
+        // UPDATE FIRESTORE
+        // ==================================
+
+        await updateDoc(
+
+            doc(
+                db,
+                "projects",
+                editingProjectId
+            ),
+
+            {
+
+                title:
+                    title,
+
+                description:
+                    description,
+
+                technologies:
+                    technologies,
+
+                summary:
+                    summary,
+
+                imageUrl:
+                    imageUrl,
+
+                imagePublicId:
+                    imagePublicId,
+
+                files:
+                    updatedFiles,
+
+                projectLinks:
+                    projectLinks
+
+            }
+
+        );
+
+
+        // ==================================
+        // SUCCESS
+        // ==================================
+
+        alert(
+            "Project Updated Successfully! 🎉"
+        );
+
+
+        // ==================================
+        // RESET FORM
+        // ==================================
+
+        projectImage.value = "";
+
+        projectTitle.value = "";
+
+        projectDescription.value = "";
+
+        projectTechnologies.value = "";
+
+        projectFiles.value = "";
+
+        projectSummary.value = "";
+
+        projectLinksContainer.innerHTML = "";
+
+        addProjectLinkRow();
+
+
+        // ==================================
+        // EXIT EDIT MODE
+        // ==================================
+
+        editingProjectId = null;
+
+        editingProject = null;
+
+
+        // Change button back
+        uploadProjectBtn.innerText =
+            "➕ Add Project";
+
+
+        // Reload project list
+        await loadProjects();
+
+
+    } catch (error) {
+
+        console.error(
+            "Project Update Error:",
+            error
+        );
+
+        alert(
+            "Project Update Failed!\n\n" +
+            error.message
+        );
+
+    } finally {
+
+        uploadProjectBtn.disabled =
+            false;
+
+        if (editingProjectId) {
+
+            uploadProjectBtn.innerText =
+                "💾 Update Project";
+
+        } else {
+
+            uploadProjectBtn.innerText =
+                "➕ Add Project";
+
+        }
+
+    }
+
+}
 
 // ==========================================
 // LOAD PROJECTS
@@ -483,6 +751,11 @@ async function loadProjects() {
                     "projects"
                 )
             );
+            console.log("🔥 Firebase Project Documents:", snapshot.size);
+            console.log("🔥 Firebase Projects:", snapshot.docs.map(doc => ({
+                id: doc.id,
+                data: doc.data()
+            })));
 
 
         if (snapshot.empty) {
@@ -1115,294 +1388,279 @@ async function fixProjectOrder() {
 
 }
 // ==========================================
-// EDIT PROJECT FORM
+// EDIT PROJECT IN MAIN ADD PROJECT FORM
+// ==========================================
+
+let editingProjectId = null;
+let editingProject = null;
+
+// ==========================================
+// EDIT PROJECT IN MAIN ADD PROJECT FORM
 // ==========================================
 
 function showEditProjectForm(project) {
 
-    const modal =
-        document.createElement("div");
+    editingProjectId = project.id;
 
-    modal.className =
-        "project-modal";
-
-    modal.innerHTML = `
-
-        <div class="project-modal-content edit-project-modal">
-
-            <button
-                class="project-modal-close edit-close-btn">
-                ✕
-            </button>
+    // Make a safe copy
+    editingProject = {
+        ...project,
+        files: [...(project.files || [])]
+    };
 
 
-            <h2>
-                ✏️ Edit Project
-            </h2>
+    // ==================================
+    // FILL MAIN FORM
+    // ==================================
+
+    projectTitle.value =
+        project.title || "";
+
+    projectDescription.value =
+        project.description || "";
+
+    projectTechnologies.value =
+        project.technologies || "";
+
+    projectSummary.value =
+        project.summary || "";
 
 
-            <!-- Current Image -->
+    // ==================================
+    // LOAD PROJECT LINKS
+    // ==================================
 
-            <label>
-                Current Project Image
-            </label>
+    projectLinksContainer.innerHTML = "";
 
-            <img
-                src="${project.imageUrl}"
-                class="project-modal-image"
-                alt="${project.title}"
-            >
+    if (
+        project.projectLinks &&
+        project.projectLinks.length > 0
+    ) {
 
+        project.projectLinks.forEach(
+            (link) => {
 
-            <!-- Change Image -->
+                addProjectLinkRow(
+                    link.name || "",
+                    link.url || ""
+                );
 
-            <label>
-                Change Project Image
-            </label>
+            }
+        );
 
-            <input
-                type="file"
-                id="editProjectImage"
-                accept=".jpg,.jpeg,.png,.webp"
-            >
+    } else {
 
+        addProjectLinkRow();
 
-            <!-- Title -->
-
-            <label>
-                Project Title
-            </label>
-
-            <input
-                type="text"
-                id="editProjectTitle"
-                value="${project.title || ""}"
-            >
+    }
 
 
-            <!-- Description -->
+    // ==================================
+    // EXISTING PROJECT FILES
+    // ==================================
 
-            <label>
-                Project Description
-            </label>
-
-            <textarea
-                id="editProjectDescription"
-                rows="6"
-            >${project.description || ""}</textarea>
+    let existingFilesBox =
+        document.getElementById(
+            "existingProjectFiles"
+        );
 
 
-            <!-- Technologies -->
+    if (!existingFilesBox) {
 
-            <label>
-                Technologies Used
-            </label>
+        existingFilesBox =
+            document.createElement("div");
 
-            <input
-                type="text"
-                id="editProjectTechnologies"
-                value="${project.technologies || ""}"
-            >
+        existingFilesBox.id =
+            "existingProjectFiles";
+
+        existingFilesBox.className =
+            "existing-project-files";
 
 
-            <!-- Existing Files -->
+        // Put before file upload input
+        projectFiles.parentElement.insertBefore(
+            existingFilesBox,
+            projectFiles
+        );
 
+    }
+
+
+    // ==================================
+    // SHOW EXISTING FILES
+    // ==================================
+
+    renderExistingProjectFiles(
+        existingFilesBox
+    );
+
+
+    // ==================================
+    // UPDATE BUTTON
+    // ==================================
+
+    uploadProjectBtn.innerText =
+        "💾 Update Project";
+
+
+    // ==================================
+    // SCROLL TO FORM
+    // ==================================
+
+    uploadProjectBtn.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+// ==========================================
+// SHOW EXISTING PROJECT FILES
+// ==========================================
+
+function renderExistingProjectFiles(
+    container
+) {
+
+    const files =
+        editingProject.files || [];
+
+
+    if (files.length === 0) {
+
+        container.innerHTML = `
             <label>
                 Existing Project Files
             </label>
 
-            <div
-                id="existingProjectFiles"
-                class="existing-project-files"
-            >
+            <p>
+                No existing project files.
+            </p>
+        `;
 
-                ${
-                    project.files &&
-                    project.files.length > 0
+        return;
+    }
 
-                    ?
 
-                    project.files.map(
-                        (file, index) => `
+    container.innerHTML = `
 
-                            <div
-                                class="existing-file-item"
+        <label>
+            Existing Project Files
+        </label>
+
+        <div class="existing-project-files-list">
+
+            ${
+                files.map(
+                    (file, index) => `
+
+                        <div
+                            class="existing-file-item"
+                            style="
+                                display:flex;
+                                align-items:center;
+                                justify-content:space-between;
+                                gap:10px;
+                                margin-bottom:10px;
+                                padding:8px;
+                                border:1px solid #ddd;
+                                border-radius:8px;
+                            "
+                        >
+
+                            <span>
+                                📄 ${file.name}
+                            </span>
+
+                            <button
+                                type="button"
+                                class="remove-existing-file-btn"
+                                data-index="${index}"
+                                style="
+                                    background:#dc2626;
+                                    color:white;
+                                    border:none;
+                                    padding:7px 12px;
+                                    border-radius:6px;
+                                    cursor:pointer;
+                                "
                             >
+                                🗑 Remove
+                            </button>
 
-                                <span>
-                                    📄 ${file.name}
-                                </span>
+                        </div>
 
-                            </div>
-
-                        `
-                    ).join("")
-
-                    :
-
-                    `<p>No files uploaded.</p>`
-                }
-
-            </div>
-
-
-            <!-- Add New Files -->
-
-            <label>
-                Add New Project Files
-            </label>
-
-            <input
-                type="file"
-                id="editProjectFiles"
-                multiple
-                accept=".pdf,.xlsx,.xls,.doc,.docx,.py,.ipynb,.csv,.txt"
-            >
-
-
-            <small>
-                You can select multiple files.
-            </small>
-
-
-            <!-- Summary -->
-
-            <label>
-                Project Summary
-            </label>
-
-            <textarea
-                id="editProjectSummary"
-                rows="8"
-            >${project.summary || ""}</textarea>
-
-
-            <!-- Project Link -->
-
-            <label>
-                Project Link
-            </label>
-
-            <input
-                type="url"
-                id="editProjectLink"
-                value="${project.projectLink || ""}"
-                placeholder="https://github.com/..."
-            >
-
-
-            <!-- Buttons -->
-
-            <div class="edit-project-actions">
-
-                <button
-                    id="saveProjectChanges"
-                    class="save-btn"
-                >
-                    💾 Save Changes
-                </button>
-
-
-                <button
-                    id="cancelProjectEdit"
-                    class="cancel-btn"
-                >
-                    ❌ Cancel
-                </button>
-
-            </div>
+                    `
+                ).join("")
+            }
 
         </div>
-
     `;
 
 
-    document.body.appendChild(modal);
-
-
     // ==================================
-    // CLOSE
+    // REMOVE BUTTON
     // ==================================
 
-    const closeBtn =
-        modal.querySelector(
-            ".edit-close-btn"
+    const removeButtons =
+        container.querySelectorAll(
+            ".remove-existing-file-btn"
         );
 
 
-    closeBtn.addEventListener(
-        "click",
-        () => {
+    removeButtons.forEach(
+        (button) => {
 
-            modal.remove();
+            button.addEventListener(
+                "click",
+                () => {
 
-        }
-    );
-
-
-    // ==================================
-    // CANCEL
-    // ==================================
-
-    const cancelBtn =
-        modal.querySelector(
-            "#cancelProjectEdit"
-        );
+                    const index =
+                        Number(
+                            button.getAttribute(
+                                "data-index"
+                            )
+                        );
 
 
-    cancelBtn.addEventListener(
-        "click",
-        () => {
-
-            modal.remove();
-
-        }
-    );
+                    const fileName =
+                        editingProject.files[index]
+                            ?.name ||
+                        "this file";
 
 
-    // ==================================
-    // SAVE
-    // ==================================
-
-    const saveBtn =
-        modal.querySelector(
-            "#saveProjectChanges"
-        );
+                    const confirmRemove =
+                        confirm(
+                            `Remove "${fileName}" from this project?`
+                        );
 
 
-    saveBtn.addEventListener(
-        "click",
-        async () => {
+                    if (!confirmRemove) {
+                        return;
+                    }
 
-            await saveProjectChanges(
-                project,
-                modal
+
+                    // Remove file
+                    editingProject.files.splice(
+                        index,
+                        1
+                    );
+
+
+                    // Refresh list
+                    renderExistingProjectFiles(
+                        container
+                    );
+
+                }
             );
 
         }
     );
 
-
-    // ==================================
-    // CLICK OUTSIDE
-    // ==================================
-
-    modal.addEventListener(
-        "click",
-        (event) => {
-
-            if (
-                event.target === modal
-            ) {
-
-                modal.remove();
-
-            }
-
-        }
-    );
-
 }
+
 
 
 // ==========================================
